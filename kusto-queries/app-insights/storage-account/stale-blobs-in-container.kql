@@ -1,0 +1,14 @@
+// Selects blobs that have been in a container for more than 3 days
+// This query requires diagnostic settings to be enabled for the storage account
+
+let storageBlobLogs = StorageBlobLogs
+| extend objectKey = split(ObjectKey, '/')
+| where array_length(objectKey) >= 4
+| project TimeGenerated, OperationName, storage = tostring(objectKey[1]), container = tostring(objectKey[2]), id = tostring(objectKey[3])
+| where container == '...';
+
+storageBlobLogs
+| where OperationName == 'PutBlob'
+| where datetime_add('day', -3,now()) > TimeGenerated 
+| join kind=leftanti (storageBlobLogs | where OperationName == 'DeleteBlob') on id
+| project-away OperationName

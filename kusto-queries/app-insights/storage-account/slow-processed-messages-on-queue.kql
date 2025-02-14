@@ -1,0 +1,14 @@
+// Selects slow processed messages (10 minutes) on a specific queue in a storage account
+// This query requires diagnostic settings to be enabled for the storage account
+
+let queueLogs = StorageQueueLogs
+| extend objectKey = split(ObjectKey, '/')
+| where array_length(objectKey) >= 4
+| project OperationName, timeOnQueue = now() - TimeGenerated, storage = tostring(objectKey[1]), queue = tostring(objectKey[2]), id = tostring(objectKey[3])
+| where queue == '...';
+
+queueLogs
+| where OperationName == 'PutMessage'
+| where timeOnQueue >= timespan('10m')
+| join kind=leftanti (queueLogs | where OperationName == 'DeleteMessage') on id
+| project-away OperationName

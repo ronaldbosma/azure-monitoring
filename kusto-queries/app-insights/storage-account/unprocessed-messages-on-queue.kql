@@ -1,0 +1,13 @@
+// Selects all unprocessed messages on a specific queue in a storage account
+// This query requires diagnostic settings to be enabled for the storage account
+
+let queueLogs = StorageQueueLogs
+| extend objectKey = split(ObjectKey, '/')
+| where array_length(objectKey) >= 4
+| project OperationName, storage = tostring(objectKey[1]), queue = tostring(objectKey[2]), id = tostring(objectKey[3])
+| where queue == '...';
+
+queueLogs
+| where OperationName == 'PutMessage'
+| join kind=leftanti (queueLogs | where OperationName == 'DeleteMessage') on id
+| project-away OperationName
