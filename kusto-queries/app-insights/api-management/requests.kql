@@ -1,0 +1,8 @@
+requests
+| where customDimensions["Service ID"] == "##apimResourceName##"
+| extend 
+    subscription = tostring(customDimensions["Subscription Name"]),
+    api = tostring(customDimensions["API Name"]),
+    httpMethod = tostring(customDimensions["HTTP Method"]),
+    operatie = tostring(customDimensions["Operation Name"])
+ 
