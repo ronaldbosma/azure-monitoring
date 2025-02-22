@@ -1,0 +1,3 @@
+AzureMetrics
+| where ResourceProvider == "MICROSOFT.SERVICEBUS"
+| distinct MetricName
