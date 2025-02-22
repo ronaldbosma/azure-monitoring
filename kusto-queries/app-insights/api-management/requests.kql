@@ -1,5 +1,6 @@
 requests
-| where customDimensions["Service ID"] == "##apimResourceName##"
+| where customDimensions["Service Type"] == "API Management"
+// | where customDimensions["Service ID"] == "##apimResourceName##"
 | extend 
     subscription = tostring(customDimensions["Subscription Name"]),
     api = tostring(customDimensions["API Name"]),
