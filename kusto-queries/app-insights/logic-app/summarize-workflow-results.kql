@@ -1,0 +1,9 @@
+traces
+//| where timestamp >= ago(90d)
+| where customDimensions.Category == 'Workflow.Operations.Runs'
+| where customDimensions.EventName == 'WorkflowRunEnd'
+| extend workflow = operation_Name
+| extend status = replace_string(tostring(customDimensions.status), @'"', '')
+| evaluate pivot(status, count(), workflow)
+| project-reorder workflow, * desc
+| sort by workflow asc

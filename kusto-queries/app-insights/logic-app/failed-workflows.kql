@@ -1,0 +1,6 @@
+traces
+| where customDimensions.Category == 'Workflow.Operations.Runs'
+| where customDimensions.EventName == 'WorkflowRunEnd'
+| extend status = replace_string(tostring(customDimensions.status), @'"', '')
+| where status != 'Succeeded' // Workflow could be Failed or Cancelled
+| sort by timestamp desc

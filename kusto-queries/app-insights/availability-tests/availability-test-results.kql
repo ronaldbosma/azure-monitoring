@@ -1,0 +1,9 @@
+availabilityResults
+| project 
+    timestamp,
+    name,
+    location,
+    success,
+    message,
+    duration
+| sort by timestamp desc

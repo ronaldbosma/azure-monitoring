@@ -1,0 +1,9 @@
+requests
+| where customDimensions.Category == 'Host.Results'
+| summarize success=countif(success==true), 
+            lastSuccess=maxif(timestamp, success==true),
+            failed=countif(success==false), 
+            lastFailure=maxif(timestamp, success==false)
+        by name, cloud_RoleName
+| sort by name asc
+| project name, success, lastSuccess, failed, lastFailure, cloud_RoleName

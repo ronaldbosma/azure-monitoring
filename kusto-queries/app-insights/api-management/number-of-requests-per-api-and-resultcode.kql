@@ -1,0 +1,6 @@
+requests
+| where customDimensions["Service Type"] == "API Management"
+| extend Api = tostring(customDimensions["API Name"])
+| evaluate pivot(resultCode, count(), Api)
+| project-reorder * desc // This will make sure the higher result codes (e.g. errors) are rendered first
+| sort by Api asc

@@ -1,0 +1,4 @@
+availabilityResults
+| extend percentage = toint(success) * 100
+| summarize avg(percentage) by name, bin(timestamp, 5m)
+| render scatterchart with(ymax=100)

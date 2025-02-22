@@ -1,0 +1,4 @@
+requests
+| where customDimensions.Category == 'Host.Results'
+| where success == false
+| sort by timestamp desc
