@@ -1,0 +1,12 @@
+alertsmanagementresources
+| extend description = coalesce(properties.essentials.description, properties.context.context.activityLog.description)
+| extend status = properties.context.status
+| extend monitorCondition = properties.essentials.monitorCondition
+| extend lastModifiedDateTime = todatetime(properties.essentials.lastModifiedDateTime)
+| extend targetResourceType = properties.essentials.targetResourceType
+| extend targetResourceName = properties.essentials.targetResourceName
+| extend monitorService = properties.essentials.monitorService
+| extend dimension = properties.context.context.condition.allOf[0].dimensions[0].value
+| where monitorService != "ActivityLog Recommendation" // Ignore alerts about Advisor Recommendations
+| project lastModifiedDateTime, description, dimension, monitorCondition, name, targetResourceType, targetResourceName, monitorService, properties
+| sort by lastModifiedDateTime desc
