@@ -16,3 +16,4 @@ The following workbooks are available:
 
 - [APIM Requests](./workbooks/apim-requests)
 - [Azure Functions](./workbooks/azure-functions)
+- [Logic App Workflows](./workbooks/logic-app-workflows)
