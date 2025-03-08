@@ -14,4 +14,4 @@ The following folders contain Kusto queries for different Azure services:
 
 The following workbooks are available:
 
-- [APIM Requests](./workbooks/apim-requests/README.md)
+- [APIM Requests](./workbooks/apim-requests)
