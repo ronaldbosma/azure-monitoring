@@ -5,6 +5,9 @@
       "type": 9,
       "content": {
         "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "{ApplicationInsights}"
+        ],
         "parameters": [
           {
             "id": "308c9a05-291a-42a4-8162-afb54d675d77",
@@ -145,7 +148,8 @@
             },
             "timeContextFromParameter": "TimeRange",
             "queryType": 0,
-            "resourceType": "microsoft.insights/components"
+            "resourceType": "microsoft.insights/components",
+            "value": []
           },
           {
             "id": "251c6ce1-108b-4f0f-a4be-69e539690b56",
@@ -173,7 +177,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "let functionAppFilter = dynamic([{FunctionApp}]);\r\nlet successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Category\"] == 'Host.Results'\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| where array_length(functionAppFilter) == 0 or cloud_RoleName in (functionAppFilter)\r\n| extend status = iff(success==true, 'success', 'error')\r\n| project\r\n    status,\r\n    timestamp,\r\n    cloud_RoleName,\r\n    name,\r\n    duration,\r\n    details = itemId,\r\n    trace = itemId\r\n| sort by timestamp desc\r\n",
+        "query": "let functionAppFilter = dynamic([{FunctionApp}]);\r\nlet functionFilter = dynamic([{Function}]);\r\nlet successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Category\"] == 'Host.Results'\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| where array_length(functionAppFilter) == 0 or cloud_RoleName in (functionAppFilter)\r\n| where array_length(functionFilter) == 0 or name in (functionFilter)\r\n| extend status = iff(success==true, 'success', 'error')\r\n| project\r\n    status,\r\n    timestamp,\r\n    cloud_RoleName,\r\n    name,\r\n    duration,\r\n    details = itemId,\r\n    trace = itemId\r\n| sort by timestamp desc\r\n",
         "size": 2,
         "timeContextFromParameter": "TimeRange",
         "queryType": 0,
