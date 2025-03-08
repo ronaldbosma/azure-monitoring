@@ -194,7 +194,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "let subscriptionFilter = dynamic([{ApimSubscription}]);\r\nlet apiFilter = dynamic([{Api}]);\r\nlet operationFilter = dynamic([{Operation}]);\r\nlet successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Service Type\"] == \"API Management\"\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| extend \r\n    subscription = tostring(customDimensions[\"Subscription Name\"]),\r\n    api = tostring(customDimensions[\"API Name\"]),\r\n    httpMethod = tostring(customDimensions[\"HTTP Method\"]),\r\n    operation = tostring(customDimensions[\"Operation Name\"]),\r\n    status = iff(success==true, 'success', 'error')\r\n| where array_length(subscriptionFilter) == 0 or subscription in (subscriptionFilter)\r\n| where array_length(apiFilter) == 0 or api in (apiFilter)\r\n| where array_length(operationFilter) == 0 or operation in (operationFilter)\r\n| project\r\n    status,\r\n    subscription,\r\n    api,\r\n    name,\r\n    resultCode,\r\n    duration,\r\n    details = itemId,\r\n    trace = itemId,\r\n    operation,\r\n    url",
+        "query": "let subscriptionFilter = dynamic([{ApimSubscription}]);\r\nlet apiFilter = dynamic([{Api}]);\r\nlet operationFilter = dynamic([{Operation}]);\r\nlet successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Service Type\"] == \"API Management\"\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| extend \r\n    subscription = tostring(customDimensions[\"Subscription Name\"]),\r\n    api = tostring(customDimensions[\"API Name\"]),\r\n    httpMethod = tostring(customDimensions[\"HTTP Method\"]),\r\n    operation = tostring(customDimensions[\"Operation Name\"]),\r\n    status = iff(success==true, 'success', 'error')\r\n| where array_length(subscriptionFilter) == 0 or subscription in (subscriptionFilter)\r\n| where array_length(apiFilter) == 0 or api in (apiFilter)\r\n| where array_length(operationFilter) == 0 or operation in (operationFilter)\r\n| project\r\n    status,\r\n    timestamp,\r\n    subscription,\r\n    api,\r\n    name,\r\n    resultCode,\r\n    duration,\r\n    details = itemId,\r\n    trace = itemId,\r\n    operation,\r\n    url\r\n| sort by timestamp desc",
         "size": 2,
         "showAnalytics": true,
         "timeContextFromParameter": "TimeRange",
@@ -278,6 +278,10 @@
             {
               "columnId": "status",
               "label": "Status"
+            },
+            {
+              "columnId": "timestamp",
+              "label": "Timestamp"
             },
             {
               "columnId": "subscription",
