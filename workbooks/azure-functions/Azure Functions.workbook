@@ -179,7 +179,10 @@
         "version": "KqlItem/1.0",
         "query": "let functionAppFilter = dynamic([{FunctionApp}]);\r\nlet functionFilter = dynamic([{Function}]);\r\nlet successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Category\"] == 'Host.Results'\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| where array_length(functionAppFilter) == 0 or cloud_RoleName in (functionAppFilter)\r\n| where array_length(functionFilter) == 0 or name in (functionFilter)\r\n| extend status = iff(success==true, 'success', 'error')\r\n| project\r\n    status,\r\n    timestamp,\r\n    cloud_RoleName,\r\n    name,\r\n    duration,\r\n    details = itemId,\r\n    trace = itemId\r\n| sort by timestamp desc\r\n",
         "size": 2,
+        "showAnalytics": true,
         "timeContextFromParameter": "TimeRange",
+        "showRefreshButton": true,
+        "showExportToExcel": true,
         "queryType": 0,
         "resourceType": "microsoft.insights/components",
         "crossComponentResources": [
@@ -245,6 +248,7 @@
               }
             }
           ],
+          "filter": true,
           "labelSettings": [
             {
               "columnId": "status",
