@@ -23,7 +23,7 @@
               "durationMs": 86400000
             },
             "value": "",
-            "label": "Azure Subscription"
+            "label": "Subscription"
           },
           {
             "id": "78d01b22-9160-4479-83e8-8e98780915a4",

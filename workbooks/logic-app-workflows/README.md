@@ -29,7 +29,7 @@ Follow these steps to manually deploy the workbook:
 
 You can follow the guide [Deploy Azure Workbook and App Insights Function](https://ronaldbosma.github.io/blog/2023/03/10/deploy-azure-workbook-and-app-insights-function/) to deploy the workbook using **Bicep**.
 
-By default, the **Azure Subscription** and **Application Insights** parameters are empty. When deploying the workbook, you may want to specify these parameters. There are several approaches:
+By default, the **Subscription** and **Application Insights** parameters are empty. When deploying the workbook, you may want to specify these parameters. There are several approaches:
 
 1. Use a placeholder value for both parameters and set them during deployment. You can hide these parameters in reading mode by setting the `Hide parameter in reading mode` property to `true`.
 2. Remove the parameters from the workbook. Some parameters and the table reference the **Application Insights** parameter using the `{ApplicationInsights}` syntax. Replace this with the **Application Insights resource ID** during deployment.
