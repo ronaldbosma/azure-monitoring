@@ -207,8 +207,9 @@
             },
             {
               "columnMatch": "duration",
-              "formatter": 0,
+              "formatter": 4,
               "formatOptions": {
+                "palette": "blue",
                 "customColumnWidthSetting": "13ch"
               },
               "numberFormat": {

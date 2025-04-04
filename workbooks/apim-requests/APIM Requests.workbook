@@ -207,8 +207,7 @@
             },
             "timeContextFromParameter": "TimeRange",
             "queryType": 0,
-            "resourceType": "microsoft.insights/components",
-            "value": []
+            "resourceType": "microsoft.insights/components"
           }
         ],
         "style": "pills",
@@ -258,8 +257,9 @@
             },
             {
               "columnMatch": "duration",
-              "formatter": 0,
+              "formatter": 4,
               "formatOptions": {
+                "palette": "blue",
                 "customColumnWidthSetting": "13ch"
               },
               "numberFormat": {
