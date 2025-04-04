@@ -5,6 +5,9 @@
       "type": 9,
       "content": {
         "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "{ApplicationInsights}"
+        ],
         "parameters": [
           {
             "id": "308c9a05-291a-42a4-8162-afb54d675d77",
@@ -182,6 +185,30 @@
             },
             "jsonData": "[\r\n    { \"value\": \"true\", \"label\": \"yes\"},\r\n    { \"value\": \"false\", \"label\": \"no\"}\r\n]",
             "value": null
+          },
+          {
+            "id": "68efa361-f3a9-46da-a34f-ddc566dd9a07",
+            "version": "KqlParameterItem/1.0",
+            "name": "ResultCode",
+            "label": "Result Code",
+            "type": 2,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "let subscriptionFilter = dynamic([{ApimSubscription}]);\r\nlet apiFilter = dynamic([{Api}]);\r\nlet operationFilter = dynamic([{Operation}]);\r\nlet successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Service Type\"] == \"API Management\"\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| extend \r\n    subscription = tostring(customDimensions[\"Subscription Name\"]),\r\n    api = tostring(customDimensions[\"API Name\"]),\r\n    operation = tostring(customDimensions[\"Operation Name\"])\r\n| where array_length(subscriptionFilter) == 0 or subscription in (subscriptionFilter)\r\n| where array_length(apiFilter) == 0 or api in (apiFilter)\r\n| where array_length(operationFilter) == 0 or operation in (operationFilter)\r\n| distinct resultCode\r\n| sort by resultCode asc",
+            "crossComponentResources": [
+              "{ApplicationInsights}"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.insights/components",
+            "value": []
           }
         ],
         "style": "pills",
@@ -194,7 +221,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "let subscriptionFilter = dynamic([{ApimSubscription}]);\r\nlet apiFilter = dynamic([{Api}]);\r\nlet operationFilter = dynamic([{Operation}]);\r\nlet successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Service Type\"] == \"API Management\"\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| extend \r\n    subscription = tostring(customDimensions[\"Subscription Name\"]),\r\n    api = tostring(customDimensions[\"API Name\"]),\r\n    httpMethod = tostring(customDimensions[\"HTTP Method\"]),\r\n    operation = tostring(customDimensions[\"Operation Name\"]),\r\n    status = iff(success==true, 'success', 'error')\r\n| where array_length(subscriptionFilter) == 0 or subscription in (subscriptionFilter)\r\n| where array_length(apiFilter) == 0 or api in (apiFilter)\r\n| where array_length(operationFilter) == 0 or operation in (operationFilter)\r\n| project\r\n    status,\r\n    timestamp,\r\n    subscription,\r\n    api,\r\n    name,\r\n    resultCode,\r\n    duration,\r\n    details = itemId,\r\n    trace = itemId,\r\n    operation,\r\n    url\r\n| sort by timestamp desc",
+        "query": "let subscriptionFilter = dynamic([{ApimSubscription}]);\r\nlet apiFilter = dynamic([{Api}]);\r\nlet operationFilter = dynamic([{Operation}]);\r\nlet successFilter = '{Success}';\r\nlet resultCodeFilter = dynamic([{ResultCode}]);\r\n\r\nrequests\r\n| where customDimensions[\"Service Type\"] == \"API Management\"\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| where array_length(resultCodeFilter) == 0 or resultCode in (resultCodeFilter)\r\n| extend \r\n    subscription = tostring(customDimensions[\"Subscription Name\"]),\r\n    api = tostring(customDimensions[\"API Name\"]),\r\n    httpMethod = tostring(customDimensions[\"HTTP Method\"]),\r\n    operation = tostring(customDimensions[\"Operation Name\"]),\r\n    status = iff(success==true, 'success', 'error')\r\n| where array_length(subscriptionFilter) == 0 or subscription in (subscriptionFilter)\r\n| where array_length(apiFilter) == 0 or api in (apiFilter)\r\n| where array_length(operationFilter) == 0 or operation in (operationFilter)\r\n| project\r\n    status,\r\n    timestamp,\r\n    subscription,\r\n    api,\r\n    name,\r\n    resultCode,\r\n    duration,\r\n    details = itemId,\r\n    trace = itemId,\r\n    operation,\r\n    url\r\n| sort by timestamp desc",
         "size": 2,
         "showAnalytics": true,
         "timeContextFromParameter": "TimeRange",
@@ -213,6 +240,13 @@
               "formatter": 11,
               "formatOptions": {
                 "customColumnWidthSetting": "11ch"
+              }
+            },
+            {
+              "columnMatch": "timestamp",
+              "formatter": 0,
+              "formatOptions": {
+                "customColumnWidthSetting": "23ch"
               }
             },
             {
