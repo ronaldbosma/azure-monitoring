@@ -1,0 +1,8 @@
+Resources
+| where type in (
+    'microsoft.insights/workbooks',
+    'microsoft.portal/dashboards'
+  )
+| extend DisplayName = tostring(properties.displayName)
+| sort by type asc, DisplayName asc
+| project id, DisplayName

@@ -1,0 +1,10 @@
+Resources
+| where type in (
+    'microsoft.apimanagement/service',
+    'microsoft.web/sites',
+    'microsoft.insights/components',
+    'microsoft.servicebus/namespaces',
+    'microsoft.storage/storageaccounts'
+  )
+| sort by name asc
+| project id
