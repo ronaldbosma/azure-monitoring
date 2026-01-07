@@ -1,0 +1,9 @@
+requests
+| where customDimensions["Service Type"] == "API Management"
+| extend api = tostring(customDimensions["API Name"])
+| extend operation = tostring(customDimensions["Operation Name"])
+| summarize numberOfRequests = count() by bin(timestamp, 1m), api, operation
+| summarize topMaxRequests = array_slice(array_sort_desc(make_list(numberOfRequests)), 0, 15), 
+            maxRequest = max(numberOfRequests) by api, operation
+| project api, operation, maxRequest, topMaxRequests
+| sort by api asc, operation asc
