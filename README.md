@@ -2,6 +2,12 @@
 
 This repository contains various resources for monitoring Azure services. 
 
+## Alerts
+
+The following alerts are available:
+
+- [Failed Requests Alert](./alerts/failed-requests-alert.bicep)
+
 ## Kusto Queries
 
 The following folders contain Kusto queries for different Azure services:
