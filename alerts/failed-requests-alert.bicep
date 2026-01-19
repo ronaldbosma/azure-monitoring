@@ -9,9 +9,6 @@
 @description('Location to use for all resources')
 param location string
 
-@description('The tags to associate with the resource')
-param tags object
-
 @description('The name of the App Insights instance that will be used by the Logic App')
 param appInsightsName string
 
@@ -35,7 +32,6 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
 resource failedRequestsScheduledQueryRule 'Microsoft.Insights/scheduledQueryRules@2023-12-01' = {
   name: 'Failed Requests Alert - ${appInsightsName}'
   location: location
-  tags: tags
 
   properties: {
     displayName: 'Failed Requests Alert - ${appInsightsName}'
