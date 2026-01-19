@@ -12,8 +12,8 @@ param location string
 @description('The name of the App Insights instance that will be used by the Logic App')
 param appInsightsName string
 
-@description('The ID of the action group to notify when an alert is triggered')
-param actionGroupId string
+@description('The ID of the action group to notify when an alert is triggered (optional)')
+param actionGroupId string = ''
 
 //=============================================================================
 // Existing resources
@@ -45,9 +45,7 @@ resource failedRequestsScheduledQueryRule 'Microsoft.Insights/scheduledQueryRule
     ]
 
     actions: {
-      actionGroups: [
-        actionGroupId
-      ]
+      actionGroups: actionGroupId == '' ? [] : [ actionGroupId ]
     }
     
     evaluationFrequency: 'PT15M' // Execute every 15 minutes
