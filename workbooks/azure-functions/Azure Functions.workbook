@@ -105,53 +105,6 @@
             }
           },
           {
-            "id": "d7ac71c1-a908-40ed-a788-8e760c5484fb",
-            "version": "KqlParameterItem/1.0",
-            "name": "FunctionApp",
-            "label": "Function App",
-            "type": 2,
-            "multiSelect": true,
-            "quote": "'",
-            "delimiter": ",",
-            "query": "requests\r\n| where customDimensions[\"Category\"] == 'Host.Results'\r\n| distinct cloud_RoleName\r\n| sort by cloud_RoleName asc",
-            "crossComponentResources": [
-              "{ApplicationInsights}"
-            ],
-            "typeSettings": {
-              "additionalResourceOptions": []
-            },
-            "timeContext": {
-              "durationMs": 0
-            },
-            "timeContextFromParameter": "TimeRange",
-            "queryType": 0,
-            "resourceType": "microsoft.insights/components",
-            "value": []
-          },
-          {
-            "id": "7cd65841-2e89-40e9-ae20-1617a1740be6",
-            "version": "KqlParameterItem/1.0",
-            "name": "Function",
-            "type": 2,
-            "multiSelect": true,
-            "quote": "'",
-            "delimiter": ",",
-            "query": "let functionAppFilter = dynamic([{FunctionApp}]);\r\n\r\nrequests\r\n| where customDimensions[\"Category\"] == 'Host.Results'\r\n| where array_length(functionAppFilter) == 0 or cloud_RoleName in (functionAppFilter)\r\n| distinct name\r\n| sort by name asc",
-            "crossComponentResources": [
-              "{ApplicationInsights}"
-            ],
-            "typeSettings": {
-              "additionalResourceOptions": []
-            },
-            "timeContext": {
-              "durationMs": 0
-            },
-            "timeContextFromParameter": "TimeRange",
-            "queryType": 0,
-            "resourceType": "microsoft.insights/components",
-            "value": []
-          },
-          {
             "id": "251c6ce1-108b-4f0f-a4be-69e539690b56",
             "version": "KqlParameterItem/1.0",
             "name": "Success",
@@ -165,6 +118,53 @@
             },
             "timeContextFromParameter": "TimeRange",
             "value": null
+          },
+          {
+            "id": "d7ac71c1-a908-40ed-a788-8e760c5484fb",
+            "version": "KqlParameterItem/1.0",
+            "name": "FunctionApp",
+            "label": "Function App",
+            "type": 2,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "let successFilter = '{Success}';\r\n\r\nrequests\r\n| where customDimensions[\"Category\"] == 'Host.Results'\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| distinct cloud_RoleName\r\n| sort by cloud_RoleName asc",
+            "crossComponentResources": [
+              "{ApplicationInsights}"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.insights/components"
+          },
+          {
+            "id": "7cd65841-2e89-40e9-ae20-1617a1740be6",
+            "version": "KqlParameterItem/1.0",
+            "name": "Function",
+            "type": 2,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "query": "let successFilter = '{Success}';\r\nlet functionAppFilter = dynamic([{FunctionApp}]);\r\n\r\nrequests\r\n| where customDimensions[\"Category\"] == 'Host.Results'\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| where array_length(functionAppFilter) == 0 or cloud_RoleName in (functionAppFilter)\r\n| distinct name\r\n| sort by name asc",
+            "crossComponentResources": [
+              "{ApplicationInsights}"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 0
+            },
+            "timeContextFromParameter": "TimeRange",
+            "queryType": 0,
+            "resourceType": "microsoft.insights/components"
           }
         ],
         "style": "pills",
