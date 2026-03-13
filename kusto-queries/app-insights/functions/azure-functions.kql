@@ -1,0 +1,14 @@
+requests
+| where customDimensions["Category"] == 'Host.Results'
+| extend functionTrigger = customDimensions['TriggerReason']
+| extend status = iff(success==true, 'success', 'error')
+| project
+    status,
+    timestamp,
+    cloud_RoleName,
+    functionName = name,
+    duration,
+    success,
+    resultCode,
+    functionTrigger
+| sort by timestamp desc

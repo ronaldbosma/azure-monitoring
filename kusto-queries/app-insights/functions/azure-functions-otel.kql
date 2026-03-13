@@ -1,0 +1,15 @@
+requests
+| extend functionName = tostring(customDimensions["faas.name"])
+| where functionName != '' // Only include Azure Function related requests
+| extend functionTrigger = tostring(customDimensions["faas.trigger"])
+| extend status = iff(success==true, 'success', 'error')
+| project
+    status,
+    timestamp,
+    cloud_RoleName,
+    functionName,
+    duration,
+    success,
+    resultCode,
+    functionTrigger
+| sort by timestamp desc
