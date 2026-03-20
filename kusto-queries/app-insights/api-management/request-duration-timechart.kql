@@ -1,0 +1,10 @@
+requests
+| make-series 
+    average = avg(duration), 
+    median = percentile(duration, 50),
+    p80 = percentile(duration, 80),
+    p95 = percentile(duration, 95),
+    p99 = percentile(duration, 99),
+    default=0
+  on timestamp from ago(15m) to now() step 15s
+| render timechart
