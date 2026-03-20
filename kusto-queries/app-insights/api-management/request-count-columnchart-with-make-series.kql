@@ -1,0 +1,6 @@
+// By using make-series instead of summarize, we can influence the period for which the graph is shown
+// make-series returns a continuous set of time buckets (including empty ones as 0), unlike summarize which only returns buckets that have data.
+
+requests
+| make-series count() default=0 on timestamp from ago(15m) to now() step 15s by success
+| render columnchart with (kind=stacked)
