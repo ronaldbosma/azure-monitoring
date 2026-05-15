@@ -1,3 +1,5 @@
+// Hint: Replace AzureDiagnostics with AGWFirewallLogs if dedicated tables are used
+
 AzureDiagnostics
 | where ResourceType == 'APPLICATIONGATEWAYS'
 | where Category == 'ApplicationGatewayFirewallLog'

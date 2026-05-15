@@ -1,3 +1,5 @@
+// Hint: Replace AzureDiagnostics with AGWAccessLogs if dedicated tables are used
+
 AzureDiagnostics
 | where ResourceType == 'APPLICATIONGATEWAYS'
 | where Category == 'ApplicationGatewayAccessLog'
