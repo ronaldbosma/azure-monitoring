@@ -1,0 +1,3 @@
+AzureDiagnostics
+| where ResourceType == 'APPLICATIONGATEWAYS'
+| where Category == 'ApplicationGatewayFirewallLog'

@@ -1,0 +1,11 @@
+AzureDiagnostics
+| where ResourceType == 'APPLICATIONGATEWAYS'
+| where Category == 'ApplicationGatewayAccessLog'
+| project TimeGenerated,
+    Resource,
+    httpMethod_s,
+    originalHost_s,
+    originalRequestUriWithArgs_s,
+    serverStatus_s,
+    clientIP_s,
+    userAgent_s
