@@ -20,6 +20,7 @@ The following folders contain Kusto queries for different Azure services:
 
 The following workbooks are available:
 
+- [APIM Insights](./workbooks/apim-insights)
 - [APIM Requests](./workbooks/apim-requests)
 - [Azure Functions](./workbooks/azure-functions)
 - [Logic App Workflows](./workbooks/logic-app-workflows)
