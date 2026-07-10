@@ -4,6 +4,10 @@ The workbook [APIM Insights.workbook](./APIM%20Insights.workbook) can be used to
 
 - Capacity and Scaling:
   - Capacity of API Management
+
+    > The Capacity metrics used by the [classic tiers](https://learn.microsoft.com/en-us/azure/api-management/api-management-capacity?tabs=classic) are configured in this graph. 
+    > You can reconfigure the graph with these [v2 tier metrics](https://learn.microsoft.com/en-us/azure/api-management/api-management-capacity?tabs=v2-tiers) if you have a v2 tier API Management instance.
+    
   - Number of API Management instances _(if value in autoscaling param is selected)_
 
   ![APIM Insights - Capacity and Scaling](./APIM%20Insights%20-%20Capacity%20and%20Scaling.png)
@@ -30,6 +34,11 @@ The workbook [APIM Insights.workbook](./APIM%20Insights.workbook) can be used to
 
   ![APIM Insights - Operation Details](./APIM%20Insights%20-%20Operation%20Details.png)
 
+
+## Metrics
+
+The 
+https://learn.microsoft.com/en-us/azure/api-management/api-management-capacity?tabs=classic
 
 ## Deployment
 
