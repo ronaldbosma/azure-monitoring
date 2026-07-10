@@ -191,6 +191,44 @@
               }
             },
             "name": "ApimCapacityGraph"
+          },
+          {
+            "type": 10,
+            "content": {
+              "chartId": "workbook926fe369-c792-4aab-b896-114e7136fbb3",
+              "version": "MetricsItem/2.0",
+              "size": 0,
+              "chartType": 2,
+              "resourceType": "microsoft.insights/autoscalesettings",
+              "metricScope": 0,
+              "resourceParameter": "ApiManagementAutoscaleSettings",
+              "resourceIds": [
+                "{ApiManagementAutoscaleSettings}"
+              ],
+              "timeContextFromParameter": "TimeRange",
+              "timeContext": {
+                "durationMs": 0
+              },
+              "metrics": [
+                {
+                  "namespace": "microsoft.insights/autoscalesettings",
+                  "metric": "microsoft.insights/autoscalesettings--ObservedCapacity",
+                  "aggregation": 4
+                }
+              ],
+              "title": "API Management Autoscale (time range: {TimeRange:label})",
+              "showOpenInMe": true,
+              "timeBrushParameterName": "TimeRange",
+              "timeBrushExportOnlyWhenBrushed": true,
+              "gridSettings": {
+                "rowLimit": 10000
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "ApiManagementAutoscaleSettings",
+              "comparison": "isNotEqualTo"
+            },
+            "name": "ApimAutoscaleGraph"
           }
         ]
       },
