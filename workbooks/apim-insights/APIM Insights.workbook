@@ -197,7 +197,7 @@
             "content": {
               "chartId": "workbook926fe369-c792-4aab-b896-114e7136fbb3",
               "version": "MetricsItem/2.0",
-              "size": 0,
+              "size": 1,
               "chartType": 2,
               "resourceType": "microsoft.insights/autoscalesettings",
               "metricScope": 0,
