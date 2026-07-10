@@ -2,21 +2,24 @@
 
 The workbook [APIM Insights.workbook](./APIM%20Insights.workbook) can be used to gain insights into Azure API Management. The workbook contains the following:
 
-- Capacity of API Management
-- Overal view with:
+- Capacity and Scaling:
+  - Capacity of API Management
+  - Number of API Management instances _(if value in autoscaling param is selected)_
+- Overview:
   - Number of requests
   - Number of failed requests
   - Duration
-- A treeview with various information per operation at the root level. At the second level, data is show per result code.  
-  When selecting an operation row or underlying result code row. The following data can be viewed for the selected operation and result code:
-  - Requests
-  - Traces
-  - Exceptions
-  - Number of requests
-  - Number of failed requests
-  - Duration
-  - Request size
-  - Response size
+- Operation Details:
+  - A treeview with information per operation at the root level. At the second level, data is show per result code.  
+    When selecting an operation row or underlying result code row. The following data can be viewed for the selected operation and result code:
+    - Requests
+    - Traces
+    - Exceptions
+    - Number of requests
+    - Number of failed requests
+    - Duration
+    - Request size
+    - Response size
 
 ## Deployment
 
