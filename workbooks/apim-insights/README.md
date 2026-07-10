@@ -34,12 +34,6 @@ The workbook [APIM Insights.workbook](./APIM%20Insights.workbook) can be used to
 
   ![APIM Insights - Operation Details](./APIM%20Insights%20-%20Operation%20Details.png)
 
-
-## Metrics
-
-The 
-https://learn.microsoft.com/en-us/azure/api-management/api-management-capacity?tabs=classic
-
 ## Deployment
 
 ### Manual Deployment
