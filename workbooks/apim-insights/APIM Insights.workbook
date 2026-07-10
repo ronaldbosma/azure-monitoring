@@ -318,7 +318,7 @@
       "content": {
         "version": "NotebookGroup/1.0",
         "groupType": "editable",
-        "title": "Overall Insights",
+        "title": "Overview",
         "expandable": true,
         "items": [
           {
@@ -355,7 +355,7 @@
                 ]
               }
             },
-            "name": "OverallGroup_NumberOfRequests"
+            "name": "OverviewGroup_NumberOfRequests"
           },
           {
             "type": 3,
@@ -385,7 +385,7 @@
                 ]
               }
             },
-            "name": "OverallGroup_NumberOfFailedRequests"
+            "name": "OverviewGroup_NumberOfFailedRequests"
           },
           {
             "type": 3,
@@ -408,18 +408,18 @@
               ],
               "visualization": "timechart"
             },
-            "name": "OverallGroup_RequestDuration"
+            "name": "OverviewGroup_RequestDuration"
           }
         ]
       },
-      "name": "OverallGroup"
+      "name": "OverviewGroup"
     },
     {
       "type": 12,
       "content": {
         "version": "NotebookGroup/1.0",
         "groupType": "editable",
-        "title": "Insights Per Operation",
+        "title": "Operation Details",
         "expandable": true,
         "items": [
           {
@@ -713,7 +713,7 @@
                 ]
               }
             },
-            "name": "PerOperationGroup_ApiOperationAggregation"
+            "name": "OperationDetailsGroup_ApiOperationAggregation"
           },
           {
             "type": 12,
@@ -1337,7 +1337,7 @@
           }
         ]
       },
-      "name": "PerOperationGroup"
+      "name": "OperationDetailsGroup"
     }
   ],
   "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
