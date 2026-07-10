@@ -5,10 +5,17 @@ The workbook [APIM Insights.workbook](./APIM%20Insights.workbook) can be used to
 - Capacity and Scaling:
   - Capacity of API Management
   - Number of API Management instances _(if value in autoscaling param is selected)_
+
+    ![APIM Insights - Capacity and Scaling](./APIM%20Insights%20-%20Capacity%20and%20Scaling.png)
+
 - Overview:
   - Number of requests
   - Number of failed requests
   - Duration
+  
+
+    ![APIM Insights - Overview](./APIM%20Insights%20-%20Overview.png)
+
 - Operation Details:
   - A treeview with information per operation at the root level. At the second level, data is show per result code.  
     When selecting an operation row or underlying result code row. The following data can be viewed for the selected operation and result code:
@@ -20,6 +27,9 @@ The workbook [APIM Insights.workbook](./APIM%20Insights.workbook) can be used to
     - Duration
     - Request size
     - Response size
+
+      ![APIM Insights - Operation Details](./APIM%20Insights%20-%20Operation%20Details.png)
+
 
 ## Deployment
 
