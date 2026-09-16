@@ -1,0 +1,24 @@
+let runEvents = traces
+| where timestamp >= ago(18m)
+| extend category = tostring(customDimensions["Category"])
+| where category == "Workflow.Operations.Runs"
+| extend eventName = tostring(customDimensions["EventName"])
+| extend runId = tostring(parse_json(tostring(customDimensions["resource"]))["runId"]);
+
+runEvents
+| where eventName == "WorkflowRunStart"
+| join kind=leftouter (
+    runEvents
+    | where eventName == "WorkflowRunEnd"
+  ) on operation_Id, runId // The runId identifies a unique workflow run, the operation_Id alone is not enough
+| extend status = iif(isempty(customDimensions1["status"]), "Running", replace_string(tostring(customDimensions1["status"]), @'"', ''))
+| project
+    status,
+    logicApp = cloud_RoleName,
+    workflow = operation_Name,
+    startTime = timestamp,
+    endTime = timestamp1,
+    duration = customDimensions1["prop__durationInMilliseconds"],
+    workflowType = customDimensions["prop__kind"],
+    runId
+| sort by startTime desc
