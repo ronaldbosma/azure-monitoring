@@ -1,0 +1,3 @@
+union requests, dependencies, pageViews, browserTimings, exceptions, traces 
+| where timestamp > ago(1d) 
+| summarize RetainedPercentage = 100 / avg(itemCount) by bin(timestamp, 15m), itemType, cloud_RoleName
