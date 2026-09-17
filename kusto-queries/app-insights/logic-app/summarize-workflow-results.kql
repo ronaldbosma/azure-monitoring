@@ -1,9 +1,17 @@
-traces
-//| where timestamp >= ago(90d)
-| where customDimensions.Category == 'Workflow.Operations.Runs'
-| where customDimensions.EventName == 'WorkflowRunEnd'
+let runEvents = traces
+| extend category = tostring(customDimensions["Category"])
+| where category == "Workflow.Operations.Runs"
+| extend eventName = tostring(customDimensions["EventName"])
+| extend runId = tostring(parse_json(tostring(customDimensions["resource"]))["runId"]);
+
+runEvents
+| where eventName == "WorkflowRunStart"
+| join kind=leftouter (
+    runEvents
+    | where eventName == "WorkflowRunEnd"
+  ) on operation_Id, runId // The runId identifies a unique workflow run, the operation_Id alone is not enough
+| extend status = iif(isempty(customDimensions1["status"]), "Running", replace_string(tostring(customDimensions1["status"]), @'"', ''))
 | extend workflow = operation_Name
-| extend status = replace_string(tostring(customDimensions.status), @'"', '')
 | evaluate pivot(status, count(), workflow)
 | project-reorder workflow, * desc
 | sort by workflow asc
