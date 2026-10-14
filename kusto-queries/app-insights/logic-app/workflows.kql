@@ -1,5 +1,4 @@
 let runEvents = traces
-| where timestamp >= ago(18m)
 | extend category = tostring(customDimensions["Category"])
 | where category == "Workflow.Operations.Runs"
 | extend eventName = tostring(customDimensions["EventName"])
