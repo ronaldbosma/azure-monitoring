@@ -24,3 +24,9 @@ The following workbooks are available:
 - [APIM Requests](./workbooks/apim-requests)
 - [Azure Functions](./workbooks/azure-functions)
 - [Logic App Workflows](./workbooks/logic-app-workflows)
+
+## Other
+
+Blog Post Samples:
+- [Azure Workbook Tips & Tricks](./other/azure-workbook-tips-and-tricks/)
+- [Deploy Azure Workbook and App Insights Function](./other/deploy-azure-workbook-and-appinsights-function/)
