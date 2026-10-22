@@ -27,6 +27,6 @@ The following workbooks are available:
 
 ## Other
 
-Blog Post Samples:
+Blog post samples:
 - [Azure Workbook Tips & Tricks](./other/azure-workbook-tips-and-tricks/)
 - [Deploy Azure Workbook and App Insights Function](./other/deploy-azure-workbook-and-appinsights-function/)
