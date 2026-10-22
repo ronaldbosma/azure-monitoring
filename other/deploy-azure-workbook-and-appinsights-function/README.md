@@ -1,0 +1,1 @@
+This folder contains samples for [Deploy Azure Workbook and App Insights Function](https://ronaldbosma.github.io/blog/2023/03/10/deploy-azure-workbook-and-app-insights-function/).

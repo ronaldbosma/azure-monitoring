@@ -1,0 +1,1 @@
+This folder contains a sample workbook and query for [Azure Workbook Tips & Tricks](https://ronaldbosma.github.io/blog/2023/02/28/azure-workbook-tips-tricks/).
