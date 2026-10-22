@@ -16,6 +16,7 @@ var definition = {
             name: 'Time'
             type: 4
             isRequired: true
+            isGlobal: true
             typeSettings: {
               selectableValues: [
                 {
@@ -64,6 +65,7 @@ var definition = {
                   durationMs: 7776000000
                 }
               ]
+              allowCustom: true
             }
             timeContext: {
               durationMs: 86400000
@@ -110,7 +112,7 @@ var definition = {
             timeContextFromParameter: 'Time'
             queryType: 0
             resourceType: 'microsoft.insights/components'
-            value: []
+            value: null
           }
           {
             id: '3068ae8e-e520-4551-b471-8c804ac4de56'
@@ -134,49 +136,34 @@ var definition = {
       type: 3
       content: {
         version: 'KqlItem/1.0'
-        query: 'ApimRequests\r\n| summarize \r\n    requests=strcat(\'Total # of requests: \', count()), \r\n    failures=strcat(\'Total # of failures: \', countif(success==false)),\r\n    errors=countif(toint(resultCode)>=500)\r\n  by api'
-        size: 4
+        query: 'let subscriptionFilter = dynamic([{Subscription}]);\r\nlet apiFilter = dynamic([{Api}]);\r\nlet successFilter = \'{Success}\';\r\n\r\nApimRequests\r\n| where array_length(subscriptionFilter) == 0 or subscription in (subscriptionFilter)\r\n| where array_length(apiFilter) == 0 or api in (apiFilter)\r\n| where isempty(successFilter) or success == tobool(successFilter)\r\n| make-series numberOfRequests=count() default=0 on timestamp from todatetime("{Time:startISO}") to todatetime("{Time:endISO}") step {Time:grain} by success'
+        size: 1
         showAnalytics: true
-        title: 'Total # of errors per API (status code >=500)'
+        title: 'Number of requests'
         timeContextFromParameter: 'Time'
+        timeBrushParameterName: 'Time'
+        timeBrushExportOnlyWhenBrushed: true
         showRefreshButton: true
         showExportToExcel: true
         queryType: 0
         resourceType: 'microsoft.insights/components'
-        visualization: 'tiles'
-        tileSettings: {
-          titleContent: {
-            columnMatch: 'api'
-            formatter: 1
-          }
-          subtitleContent: {
-            columnMatch: 'requests'
-          }
-          leftContent: {
-            columnMatch: 'errors'
-            formatter: 12
-            formatOptions: {
-              palette: 'auto'
+        visualization: 'barchart'
+        chartSettings: {
+          seriesLabelSettings: [
+            {
+              seriesName: 'True'
+              label: 'Success'
+              color: 'green'
             }
-            numberFormat: {
-              unit: 17
-              options: {
-                style: 'decimal'
-                maximumFractionDigits: 2
-                maximumSignificantDigits: 3
-              }
+            {
+              seriesName: 'False'
+              label: 'Error'
+              color: 'redBright'
             }
-          }
-          secondaryContent: {
-            columnMatch: 'failures'
-            formatter: 1
-          }
-          showBorder: false
-          sortCriteriaField: 'api'
-          sortOrderField: 1
+          ]
         }
       }
-      name: 'query - 2'
+      name: 'query - 4'
     }
     {
       type: 3
