@@ -2,5 +2,5 @@
 // make-series returns a continuous set of time buckets (including empty ones as 0), unlike summarize which only returns buckets that have data.
 
 requests
-| make-series count() default=0 on timestamp from ago(15m) to now() step 15s by success
+| make-series sum(itemCount) default=0 on timestamp from ago(15m) to now() step 15s by success
 | render columnchart with (kind=stacked)

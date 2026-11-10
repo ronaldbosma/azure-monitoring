@@ -1,8 +1,8 @@
 requests
 | where customDimensions.Category == 'Host.Results'
-| summarize success=countif(success==true), 
+| summarize success=sumif(itemCount, success==true), 
             lastSuccess=maxif(timestamp, success==true),
-            failed=countif(success==false), 
+            failed=sumif(itemCount, success==false), 
             lastFailure=maxif(timestamp, success==false)
         by name, cloud_RoleName
 | sort by name asc

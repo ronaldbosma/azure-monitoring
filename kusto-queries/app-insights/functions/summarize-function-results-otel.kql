@@ -1,0 +1,10 @@
+requests
+| extend functionName = tostring(customDimensions['faas.name'])
+| where functionName != '' // Only include Azure Function related requests
+| summarize success=sumif(itemCount, success==true), 
+            lastSuccess=maxif(timestamp, success==true),
+            failed=sumif(itemCount, success==false), 
+            lastFailure=maxif(timestamp, success==false)
+        by functionName, cloud_RoleName
+| sort by functionName asc
+| project functionName, success, lastSuccess, failed, lastFailure, cloud_RoleName
